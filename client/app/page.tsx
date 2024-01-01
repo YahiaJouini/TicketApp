@@ -1,6 +1,5 @@
 import TicketCard from "./(components)/TicketCard";
 import { ticketData } from "./(components)/TicketForm";
-
 const getTickets = async () => {
   try {
     const res = await fetch("http://localhost:5000/api/tickets", {

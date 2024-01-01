@@ -1,5 +1,5 @@
-'use client'
-import { useRouter } from 'next/navigation'
+"use client"
+import { useRouter } from "next/navigation"
 import { useState } from 'react'
 import axios from 'axios'
 
@@ -12,14 +12,12 @@ export type ticketData = {
     status: "Started" | "Not Started" | "Done",
     category: string
     active: boolean
-    createdAt?:string
-    _id?:string
+    createdAt?: string
+    _id?: string
 }
 
 
 const TicketForm = () => {
-
-    
     const defaultData: ticketData = {
         title: "",
         description: "",
@@ -45,11 +43,11 @@ const TicketForm = () => {
         e.preventDefault()
         axios.post('http://localhost:5000/api/ticket/new', formData)
             .then(() => {
-                router.refresh()
                 router.push('/')
-
+                router.refresh()
             })
             .catch(err => console.log(err))
+
     }
 
     return (
