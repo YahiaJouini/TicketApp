@@ -9,20 +9,24 @@ export type ticketData = {
     description: string
     priority: number
     progress: number
-    status: "started" | "not started",
+    status: "Started" | "Not Started" | "Done",
     category: string
     active: boolean
+    createdAt?:string
+    _id?:string
 }
 
 
 const TicketForm = () => {
+
+    
     const defaultData: ticketData = {
         title: "",
         description: "",
         category: "Hardware Problem",
         priority: 1,
         progress: 0,
-        status: "not started",
+        status: "Not Started",
         active: true
 
     }
@@ -135,9 +139,9 @@ const TicketForm = () => {
 
                 <label htmlFor="status">Status</label>
                 <select name="status" id="status" value={formData.status} onChange={HandleChange}>
-                    <option value="not started">Not Started</option>
-                    <option value="started">Started</option>
-                    <option value="done">Done</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="Started">Started</option>
+                    <option value="Done">Done</option>
                 </select>
                 <input type="submit" className='btn' value="Create Ticket" />
 

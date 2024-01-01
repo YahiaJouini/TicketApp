@@ -11,3 +11,10 @@ module.exports.getTickets = (req,res) => {
     ticket.find().then(tickets=>res.json(tickets))
     .catch(err => res.status(400).json(err))
 }
+
+// delete one ticket 
+module.exports.deleteTicket = (req,res) => {
+    ticket.deleteOne({ _id: req.params.id })
+    .then(()=>res.json({message:"deleted successfully"}))
+    .catch(err=>console.log('there was an error ',err))
+}
