@@ -1,7 +1,7 @@
 import DeleteBlock from "./DeleteBlock"
 import Priority from "./Priority"
 import ProgressBar from "./ProgressBar"
-import StatusDisplay from "./statusDisplay"
+import StatusDisplay from "./StatusDisplay"
 
 const TicketCard = () => {
   return (

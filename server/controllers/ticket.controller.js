@@ -2,8 +2,8 @@ const ticket = require('../models/ticket.model')
 
 // add a new ticket
 module.exports.createTicket = (req, res) => {
-    ticket.create(req.body).then(author => res.json(author))
-        .catch(err => res.status(400).json(err))
+    ticket.create(req.body).then(ticket => res.json(ticket))
+    .catch(err => res.status(400).json(err))
 }
 
 // get all tickets
