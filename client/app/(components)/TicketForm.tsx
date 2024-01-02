@@ -17,7 +17,8 @@ export type ticketData = {
 }
 
 
-const TicketForm = () => {
+const TicketForm = ({ givenTicketData }: { givenTicketData: ticketData | null }) => {
+
     const defaultData: ticketData = {
         title: "",
         description: "",
@@ -27,6 +28,17 @@ const TicketForm = () => {
         status: "Not Started",
         active: true
 
+    }
+
+    if (givenTicketData) {
+
+        defaultData.title = givenTicketData?.title
+        defaultData.description = givenTicketData?.description
+        defaultData.priority = givenTicketData?.priority
+        defaultData.progress = givenTicketData?.progress
+        defaultData.status = givenTicketData?.status
+        defaultData.category = givenTicketData?.category
+        console.log(givenTicketData)
     }
 
     const [formData, setFormData] = useState(defaultData)
@@ -41,19 +53,27 @@ const TicketForm = () => {
 
     const HandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        axios.post('http://localhost:5000/api/ticket/new', formData)
-            .then(() => {
-                router.push('/')
-                router.refresh()
-            })
-            .catch(err => console.log(err))
-
+        if (!givenTicketData) {
+            axios.post('http://localhost:5000/api/ticket/new', formData)
+                .then(() => {
+                    router.push('/')
+                    router.refresh()
+                })
+                .catch(err => console.log(err))
+        } else {
+            axios.patch(`http://localhost:5000/api/tickets/${givenTicketData._id}`, formData)
+                .then((res) => {
+                    console.log(res)
+                    router.push('/')
+                    router.refresh()
+                })
+                .catch(err => console.log(err))
+        }
     }
-
     return (
         <div className='flex justify-center  '>
             <form className='flex flex-col gap-3 w-1/2' method='post' onSubmit={HandleSubmit}>
-                <h3>Create Your Ticket</h3>
+                <h3>{givenTicketData ? "Update Your Ticket" : "Create Your Ticket"}</h3>
                 <label htmlFor='title'>Title</label>
                 <input
                     id="title"
@@ -141,7 +161,7 @@ const TicketForm = () => {
                     <option value="Started">Started</option>
                     <option value="Done">Done</option>
                 </select>
-                <input type="submit" className='btn' value="Create Ticket" />
+                <input type="submit" className='btn' value={givenTicketData ? "Update Ticket" : "Create Ticket"} />
 
             </form>
 

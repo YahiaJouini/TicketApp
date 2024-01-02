@@ -1,7 +1,7 @@
 import TicketForm from "@/app/(components)/TicketForm"
-
+import { ticketData } from "@/app/(components)/TicketForm"
 const getTicketById = async (id: string) => {
-  const res = await fetch('http://localhost:5000/api/tickets/', {
+  const res = await fetch(`http://localhost:5000/api/tickets/${id}`, {
     cache: "no-store"
   })
   if (!res.ok) {
@@ -13,13 +13,13 @@ const getTicketById = async (id: string) => {
 const TicketPage = async ({ params }: { params: { id: string } }) => {
 
   const EditMode = params.id === "new" ? false : true
-  let updateData = {}
+  let updateData: ticketData | null = null;
   if (EditMode) {
     updateData = await getTicketById(params.id)
   }
   return (
     <div>
-      <TicketForm />
+      <TicketForm givenTicketData={updateData} />
     </div>
   )
 }
